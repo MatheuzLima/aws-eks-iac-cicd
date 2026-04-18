@@ -38,12 +38,12 @@ variable "aws_vpc_public_subnets" {
 
 variable "enable_nat_gateway" {
   description = "indica se o NAT Gateway deve ser criado para o VPC da AWS"
-  type    = bool
+  type        = bool
 }
 
 variable "enable_vpn_gateway" {
   description = "indica se o VPN Gateway deve ser criado para o VPC da AWS"
-  type    = bool
+  type        = bool
 }
 
 variable "aws_eks_cluster_name" {

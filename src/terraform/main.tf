@@ -13,7 +13,17 @@ module "vpc" {
   enable_nat_gateway = var.enable_nat_gateway
   enable_vpn_gateway = var.enable_vpn_gateway
 
-  tags = var.aws_project_tags
+  tags = merge(var.aws_project_tags, { "kubernetes.io/cluster/${var.aws_eks_cluster_name}" = "shared" })
+
+  public_subnet_tags = {
+    "kubernetes.io/cluster/${var.aws_eks_cluster_name}" = "shared"
+    "kubernetes.io/role/elb"                            = 1
+  }
+
+  private_subnet_tags = {
+    "kubernetes.io/cluster/${var.aws_eks_cluster_name}" = "shared"
+    "kubernetes.io/role/internal-elb"                   = 1
+  }
 }
 
 # EKS Kubernetes Cluster (Elastic Kubernetes Service)
@@ -21,7 +31,7 @@ module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "21.18.0"
 
-  name       = var.aws_eks_cluster_name
+  name               = var.aws_eks_cluster_name
   kubernetes_version = var.aws_eks_version
 
   enable_cluster_creator_admin_permissions = true
@@ -37,6 +47,8 @@ module "eks" {
       max_size       = 2
       desired_size   = 2
       instance_types = var.aws_eks_managed_node_groups_instance_types
+      tags           = var.aws_project_tags
     }
   }
+  tags = var.aws_project_tags
 }
