@@ -30,10 +30,8 @@ jobs:
 
             - name: "Terraform Init"
               working-directory: src/terraform/
-              run: terraform init \
-                -backend-config="${{secrets.AWS_BUCKET_NAME}}" \
-                -backend-config="key=${{secrets.AWS_BUCKET_TFSTATE}}"
+              run: terraform init -backend-config="${{secrets.AWS_BUCKET_NAME}}" -backend-config="key=${{secrets.AWS_BUCKET_TFSTATE}}"
 
             - name: "Terraform Apply"
               working-directory: src/terraform/
-              run: terraform apply -auto-approve \
+              run: terraform apply -auto-approve
