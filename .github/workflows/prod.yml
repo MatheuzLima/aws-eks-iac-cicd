@@ -5,7 +5,7 @@ on:
     - "main"
     paths:
       - "src/**"
-      - ".github/workflows/prod.yml"
+      # - ".github/workflows/prod.yml"
   workflow_dispatch:
 
 jobs: 
