@@ -1,5 +1,9 @@
 *.csv
 *.md
+*.txt
+*.bak
+
+**/*diagrama
 
 # Local .terraform directories
 **/.terraform/
